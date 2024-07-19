@@ -58,16 +58,12 @@ async function checkButton(data) {
 
 async function nextPage() {
     let data = await loadData(currentURL);
-    if (data.next !== null) {
-        currentURL = data.next;
-        renderData();
-    }
+    currentURL = data.next;
+    renderData();
 }
 
 async function previousPage() {
     let data = await loadData(currentURL);
-    if (data.previous !== null) {
-        currentURL = data.previous;
-        renderData();
-    }
+    currentURL = data.previous;
+    renderData();
 }
