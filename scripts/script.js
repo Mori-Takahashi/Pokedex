@@ -8,7 +8,7 @@ function init() {
 
 async function loadData() {
     try {
-        let response = await fetch(API_KEY + "pokemon?limit=30&offset=0");
+        let response = await fetch(API_KEY + "pokemon?limit=32&offset=0");
         let responseToJson = await response.json();
         return responseToJson;
     } catch (error) {
@@ -28,6 +28,16 @@ async function loadPokemonDetails(url) {
     }
 }
 
+async function loadPokemonDescription() {
+    try {
+        let response = await fetch();
+        let responseToJson = await response.json();
+        return responseToJson
+    } catch (error) {
+        console.error("Error in loadPokemonDescription function:", error);
+    }
+}
+
 async function renderData() {
     let data = await loadData();
     let content = document.getElementById("render");
@@ -35,8 +45,9 @@ async function renderData() {
     if (data && data.results) {
         for (let i = 0; i < data.results.length; i++) {
             let pokemon = data.results[i];
+            let pokemonDescription = await loadPokemonDescription()
             let pokemonDetails = await loadPokemonDetails(pokemon.url);
-            content.innerHTML += renderInDiv(pokemon, pokemonDetails);
+            content.innerHTML += renderInDiv(pokemon, pokemonDetails, pokemonDescription);
         }
     } else {
         content.innerHTML = "No data available";

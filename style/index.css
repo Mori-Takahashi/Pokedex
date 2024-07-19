@@ -1,3 +1,19 @@
 .poke-img {
     max-width: 400px !important;
 }
+
+.margin-10 {
+    margin: 10px;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.max-width-button {
+    max-width: 400px !important;
+}
