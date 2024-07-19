@@ -9,6 +9,10 @@
     --nav-font: pokefont;
 }
 
+body {
+    background-color: #5252529d !important;
+}
+
 .poke-img {
     max-width: 400px !important;
 }

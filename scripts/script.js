@@ -1,14 +1,15 @@
 let API_KEY = "https://pokeapi.co/api/v2/";
+let currentURL = API_KEY + "pokemon?limit=32&offset=0";
 
-window.onload = init();
+window.onload = init;
 
 function init() {
     renderData();
 }
 
-async function loadData() {
+async function loadData(url) {
     try {
-        let response = await fetch(API_KEY + "pokemon?limit=32&offset=0");
+        let response = await fetch(url);
         let responseToJson = await response.json();
         return responseToJson;
     } catch (error) {
@@ -28,36 +29,45 @@ async function loadPokemonDetails(url) {
     }
 }
 
-async function loadPokemonDescription() {
-    try {
-        let response = await fetch();
-        let responseToJson = await response.json();
-        return responseToJson
-    } catch (error) {
-        console.error("Error in loadPokemonDescription function:", error);
-    }
-}
-
 async function renderData() {
-    let data = await loadData();
+    let data = await loadData(currentURL);
     let content = document.getElementById("render");
     content.innerHTML = ``;
     if (data && data.results) {
         for (let i = 0; i < data.results.length; i++) {
             let pokemon = data.results[i];
-            let pokemonDescription = await loadPokemonDescription()
             let pokemonDetails = await loadPokemonDetails(pokemon.url);
-            content.innerHTML += renderInDiv(pokemon, pokemonDetails, pokemonDescription);
+            content.innerHTML += renderInDiv(pokemon, pokemonDetails);
         }
+        checkButton(data);
+    }
+}
+
+async function checkButton(data) {
+    if (data.next === null) {
+        document.getElementById("nextPage").disabled = true;
     } else {
-        content.innerHTML = "No data available";
+        document.getElementById("nextPage").disabled = false;
+    }
+    if (data.previous === null) {
+        document.getElementById("previousPage").disabled = true;
+    } else {
+        document.getElementById("previousPage").disabled = false;
     }
 }
 
 async function nextPage() {
-    let data = await loadData();
+    let data = await loadData(currentURL);
+    if (data.next !== null) {
+        currentURL = data.next;
+        renderData();
+    }
 }
 
-function previousPage() {
-
+async function previousPage() {
+    let data = await loadData(currentURL);
+    if (data.previous !== null) {
+        currentURL = data.previous;
+        renderData();
+    }
 }
