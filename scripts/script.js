@@ -54,4 +54,10 @@ async function renderData() {
     }
 }
 
+async function nextPage() {
+    let data = await loadData();
+}
 
+function previousPage() {
+
+}
