@@ -1,6 +1,6 @@
 function renderInDiv(pokemon, pokemonDetails) {
     return `
-        <div class="cursor-pointer margin-10 shadow p-3 card" style="width: 18rem;">
+        <div class="hover-effect cursor-pointer margin-10 shadow p-3 card" style="width: 18rem;">
         <img src="${pokemonDetails.sprites.front_default}" class="card-img-top" alt="...">
             <div class="card-body">
                 <p class="card-text fw-bold">${pokemon.name}</p>

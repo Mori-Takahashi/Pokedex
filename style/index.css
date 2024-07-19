@@ -1,3 +1,14 @@
+@font-face {
+    font-family: pokefont;
+    src: url('/fonts/pokefont/PokemonSolid.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --nav-font: pokefont;
+}
+
 .poke-img {
     max-width: 400px !important;
 }
@@ -16,4 +27,17 @@
 
 .max-width-button {
     max-width: 400px !important;
+}
+
+.hover-effect {
+    outline: 0px solid #ffffff;
+    transition: outline 0.5s ease 0s;
+}
+
+.hover-effect:hover {
+    outline: 5px solid #000000;
+}
+
+.pokefont {
+    font-family: var(--nav-font);
 }
