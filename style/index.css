@@ -45,3 +45,9 @@ body {
 .pokefont {
     font-family: var(--nav-font);
 }
+
+.git-img {
+    object-fit: cover;
+    width: 18px;
+    margin-right: 8px;
+}
