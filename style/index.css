@@ -55,3 +55,7 @@ body {
 .d-non {
     display: none;
 }
+
+.padding-3 {
+    padding: 3px;
+}
