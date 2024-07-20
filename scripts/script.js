@@ -37,10 +37,15 @@ async function renderData() {
         for (let i = 0; i < data.results.length; i++) {
             let pokemon = data.results[i];
             let pokemonDetails = await loadPokemonDetails(pokemon.url);
-            content.innerHTML += renderInDiv(pokemon, pokemonDetails);
+            content.innerHTML += renderInDiv(i, pokemon, pokemonDetails);
         }
         checkButton(data);
     }
+}
+
+function viewPokemon(count) {
+    /* full view function */
+    alert(count);
 }
 
 async function checkButton(data) {

@@ -51,3 +51,7 @@ body {
     width: 18px;
     margin-right: 8px;
 }
+
+.d-non {
+    display: none;
+}
