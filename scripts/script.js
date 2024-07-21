@@ -39,8 +39,21 @@ async function renderData() {
             let pokemonDetails = await loadPokemonDetails(pokemon.url);
             content.innerHTML += renderInDiv(i, pokemon, pokemonDetails);
         }
+        disableSpinner();
         checkButton(data);
     }
+}
+
+function enableSpinner() {
+    document.getElementById('spinner').innerHTML = /*html*/`
+        <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only"></span>
+        </div>
+    `
+}
+
+function disableSpinner() {
+    document.getElementById('spinner').innerHTML = ``;
 }
 
 function viewPokemon(count) {
@@ -64,11 +77,13 @@ async function checkButton(data) {
 async function nextPage() {
     let data = await loadData(currentURL);
     currentURL = data.next;
+    enableSpinner();
     renderData();
 }
 
 async function previousPage() {
     let data = await loadData(currentURL);
     currentURL = data.previous;
+    enableSpinner();
     renderData();
 }
