@@ -1,10 +1,24 @@
 let API_KEY = "https://pokeapi.co/api/v2/";
 let currentURL = API_KEY + "pokemon?limit=32&offset=0";
+let search_API = "pokemon/";
 
 window.onload = init;
 
 function init() {
     renderData();
+}
+
+async function searchPokemon() {
+    let input = document.getElementById('searchPokemon').value;
+    let searchURL = API_KEY + search_API + input;
+    let data = await loadPokemonDetails(searchURL);
+    let content = document.getElementById("render");
+    content.innerHTML = ``;
+    if (data) {
+        console.log(data);
+    } else {
+        alert("ERROR");
+    }
 }
 
 async function loadData(url) {

@@ -6,7 +6,7 @@
 }
 
 :root {
-    --nav-font: pokefont;
+    --poke-font: pokefont;
 }
 
 body {
@@ -43,7 +43,7 @@ body {
 }
 
 .pokefont {
-    font-family: var(--nav-font);
+    font-family: var(--poke-font);
 }
 
 .git-img {
@@ -58,4 +58,13 @@ body {
 
 .padding-3 {
     padding: 3px;
+}
+
+.no-copy {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
