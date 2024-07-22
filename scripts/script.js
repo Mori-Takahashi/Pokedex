@@ -9,7 +9,7 @@ function init() {
 }
 
 async function searchPokemon() {
-    let input = document.getElementById('searchPokemon').value.toLowerCase();
+    let input = document.getElementById('searchPokemonValue').value.toLowerCase();
     let searchURL = API_KEY + search_API + input;
     let data = await loadPokemonDetails(searchURL);
     let content = document.getElementById("render");
@@ -19,6 +19,10 @@ async function searchPokemon() {
     } else {
         alert("ERROR");
     }
+}
+
+function showAlert(messege) {
+
 }
 
 async function loadData(url) {
