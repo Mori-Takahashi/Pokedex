@@ -5,20 +5,7 @@ let search_API = "pokemon/";
 window.onload = init;
 
 function init() {
-    renderData();
-}
-
-async function searchPokemon() {
-    let input = document.getElementById('searchPokemonValue').value.toLowerCase();
-    let searchURL = API_KEY + search_API + input;
-    let data = await loadPokemonDetails(searchURL);
-    let content = document.getElementById("render");
-    content.innerHTML = ``;
-    if (data) {
-        console.log(data);
-    } else {
-        showAlert("Oh, there was an error :(");
-    }
+    renderData(currentURL);
 }
 
 function showAlert(messege) {
@@ -28,6 +15,7 @@ function showAlert(messege) {
     setTimeout(function() {
         msgDiv.classList.add('d-non');
         msgDiv.innerHTML = ``;
+        init();
     }, 5000);
 }
 
@@ -55,8 +43,8 @@ async function loadPokemonDetails(url) {
     }
 }
 
-async function renderData() {
-    let data = await loadData(currentURL);
+async function renderData(URL) {
+    let data = await loadData(URL);
     let content = document.getElementById("render");
     content.innerHTML = ``;
     if (data && data.results) {
@@ -67,6 +55,35 @@ async function renderData() {
         }
         disableSpinner();
         checkButton(data);
+    } else {
+        showAlert("oh something is wrong here :(");
+    }
+}
+
+async function renderDataSearch(URL) {
+    let data = await loadData(URL);
+    let content = document.getElementById("render");
+    content.innerHTML = ``;
+    if (data) {
+        content.innerHTML += renderInDivSearch(data);
+        disableSpinner();
+        checkButton(data);
+    } else {
+        showAlert("I couldn't find anything :(");
+    }
+}
+
+async function searchPokemon() {
+    let input = document.getElementById('searchPokemonValue').value.toLowerCase();
+    let searchURL = API_KEY + search_API + input;
+    let data = await loadPokemonDetails(searchURL);
+    let content = document.getElementById("render");
+    content.innerHTML = ``;
+    if (data) {
+        console.log(data);
+        renderDataSearch(searchURL);
+    } else {
+        showAlert("Oh, there was an error :(");
     }
 }
 
