@@ -17,12 +17,18 @@ async function searchPokemon() {
     if (data) {
         console.log(data);
     } else {
-        alert("ERROR");
+        showAlert("Oh, there was an error :(");
     }
 }
 
 function showAlert(messege) {
-
+    let msgDiv = document.getElementById('alertMessage');
+    msgDiv.classList.remove('d-non');
+    msgDiv.innerHTML = `${messege}`
+    setTimeout(function() {
+        msgDiv.classList.add('d-non');
+        msgDiv.innerHTML = ``;
+    }, 5000);
 }
 
 async function loadData(url) {
@@ -32,6 +38,7 @@ async function loadData(url) {
         return responseToJson;
     } catch (error) {
         console.error("Error in loadData function:", error);
+        showAlert("I cannot load any data :(");
         return null;
     }
 }
@@ -43,6 +50,7 @@ async function loadPokemonDetails(url) {
         return responseToJson;
     } catch (error) {
         console.error("Error in loadPokemonDetails function:", error);
+        showAlert("I can't load any parts :(");
         return null;
     }
 }
