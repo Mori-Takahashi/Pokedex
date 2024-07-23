@@ -132,12 +132,10 @@ async function previousPage() {
 async function viewPokemon(id) {
     let pokeInfos = API_KEY + search_API + id;
     let data = await loadPokemonDetails(pokeInfos);
-    let typeData = await loadPokemonDetails(getPokeStats_API + id);
     let content = document.getElementById("renderInfos");
     content.innerHTML = ``;
-    if (data && typeData) {
+    if (data) {
         console.log(data);
-        console.log(typeData);
         content.innerHTML = renderPokeInfosBigView(data);
         
     } else {
@@ -151,6 +149,7 @@ function openWindow() {
     window.classList.add('scale-up-ver-center');
     window.classList.remove('scale-out-vertical');
     window.classList.remove('d-non');
+    document.body.classList.add('overflow-hidden');
 }
 
 function closeWindow() {
@@ -159,5 +158,8 @@ function closeWindow() {
     window.classList.add('scale-out-vertical');
     setTimeout(function() {
         window.classList.add('d-non');
+        document.body.classList.remove('overflow-hidden');
     }, 500);
 }
+
+// overflow-x: hidden

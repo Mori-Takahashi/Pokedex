@@ -145,6 +145,7 @@ body {
     z-index: 999;
     background-color: white;
     border-radius: 10px !important;
+    position: fixed;
 }
 
 .big-view-pokemon img{

@@ -1,4 +1,8 @@
 function renderPokeInfosBigView(data) {
+    let typesHtml = `<span class="padding-3 rounded border border-dark">Type 1: ${data.types[0].type.name}</span>`;
+    if (data.types[1]) {
+        typesHtml += `<span class="padding-3 rounded border border-dark"> Type 2:${data.types[1].type.name}</span>`;
+    }
     return /*html*/`
         <nav class="navbar bg-body-tertiary">
           <div class="container-fluid">
@@ -10,7 +14,7 @@ function renderPokeInfosBigView(data) {
           <img src="${data.sprites.front_default}" alt="${data.sprites.front_default}">
           <div class="infoText">
             <span>National №: ${data.id}</span>
-            <span>Type: ${data.type}</span>
+            ${typesHtml}
             <span>Height: ${data.height}</span>
             <span>Weight: ${data.weight}</span>
             <span>Abilities: ${data.abilities[0].ability.name}</span>
