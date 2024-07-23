@@ -121,12 +121,12 @@ async function nextPage() {
     let data = await loadData(currentURL);
     currentURL = data.next;
     enableSpinner();
-    renderData();
+    renderData(currentURL);
 }
 
 async function previousPage() {
     let data = await loadData(currentURL);
     currentURL = data.previous;
     enableSpinner();
-    renderData();
+    renderData(currentURL);
 }

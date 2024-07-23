@@ -9,7 +9,7 @@ function renderInDivSearch(data) {
         <span class="fw-lighter">PokeID:${data.id}</span>
         <img src="${data.sprites.front_default}" class="card-img-top" alt="${data.sprites.front_default}">
             <div class="card-body">
-                <p class="card-text fw-bold">${data.forms.name}</p>
+                <p class="card-text fw-bold">${data.forms[0].name}</p> 
                 ${typesHtml} <br><br>
                 <span class="fw-lighter">PokeID:${data.id}</span>
             </div>
