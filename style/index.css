@@ -75,9 +75,13 @@ body {
     user-select: none;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
 .scale-up-ver-center {
-	-webkit-animation: scale-up-ver-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: scale-up-ver-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	-webkit-animation: scale-up-ver-center 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-ver-center 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .scale-out-vertical {
@@ -141,4 +145,9 @@ body {
     z-index: 999;
     background-color: white;
     border-radius: 10px !important;
+}
+
+.big-view-pokemon img{
+    width: 50%;
+    object-fit: cover;
 }

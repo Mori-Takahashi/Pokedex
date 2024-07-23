@@ -1,6 +1,7 @@
 let API_KEY = "https://pokeapi.co/api/v2/";
 let currentURL = API_KEY + "pokemon?limit=32&offset=0";
 let search_API = "pokemon/";
+let getPokeStats_API = "https://pokeapi.co/api/v2/stat/";
 
 window.onload = init;
 
@@ -99,11 +100,6 @@ function disableSpinner() {
     document.getElementById('spinner').innerHTML = ``;
 }
 
-function viewPokemon(count) {
-    /* full view function */
-    alert(count);
-}
-
 async function checkButton(data) {
     if (data.next === null) {
         document.getElementById("nextPage").disabled = true;
@@ -129,4 +125,39 @@ async function previousPage() {
     currentURL = data.previous;
     enableSpinner();
     renderData(currentURL);
+}
+
+// class scale-out-vertical AND scale-up-ver-center
+
+async function viewPokemon(id) {
+    let pokeInfos = API_KEY + search_API + id;
+    let data = await loadPokemonDetails(pokeInfos);
+    let typeData = await loadPokemonDetails(getPokeStats_API + id);
+    let content = document.getElementById("renderInfos");
+    content.innerHTML = ``;
+    if (data && typeData) {
+        console.log(data);
+        console.log(typeData);
+        content.innerHTML = renderPokeInfosBigView(data);
+        
+    } else {
+        showAlert("Oh, there was an error :(");
+    }
+    openWindow()
+}
+
+function openWindow() {
+    let window = document.getElementById('renderInfos');
+    window.classList.add('scale-up-ver-center');
+    window.classList.remove('scale-out-vertical');
+    window.classList.remove('d-non');
+}
+
+function closeWindow() {
+    let window = document.getElementById('renderInfos');
+    window.classList.remove('scale-up-ver-center');
+    window.classList.add('scale-out-vertical');
+    setTimeout(function() {
+        window.classList.add('d-non');
+    }, 500);
 }
