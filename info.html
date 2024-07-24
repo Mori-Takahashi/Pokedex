@@ -1,11 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex Info</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Info Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .navbar {
+      margin-bottom: 50px;
+    }
+    .navbar-brand {
+      font-family: 'Pokemon', sans-serif;
+    }
+    .footer {
+      margin-top: 50px;
+      padding: 20px 0;
+      background-color: #0d0d0d;
+      text-align: center;
+      color: #cccccc;
+    }
+    .spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
-    
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Info Page</a>
+    <button class="max-width-button btn btn-dark" type="button"><a class="link-light text-decoration-none" href=".">&#127968; Home</a></button>
+  </nav>
+  <div class="container">
+    <h1 class="text-center">Thanks and Resources</h1>
+    <ul class="list-group mt-5">
+      <li class="list-group-item bg-dark text-light">Styling with Bootstrap: <a href="https://getbootstrap.com/" target="_blank" class="text-info">https://getbootstrap.com/</a></li>
+      <li class="list-group-item bg-dark text-light">Loading Spinner: <a href="https://uiball.com/" target="_blank" class="text-info">https://uiball.com/</a></li>
+      <li class="list-group-item bg-dark text-light">Navbar Font: <a href="https://www.dafont.com/pokemon.font" target="_blank" class="text-info">https://www.dafont.com/pokemon.font</a></li>
+      <li class="list-group-item bg-dark text-light">All Pokemons come from the PokeAPI: <a href="https://pokeapi.co/" target="_blank" class="text-info">https://pokeapi.co/</a></li>
+    </ul>
+    <p class="mt-5 text-center">This site was created as part of a training course at Developer Akademie: <a href="https://developerakademie.com/" target="_blank" class="text-info">https://developerakademie.com/</a></p>
+    <ul class="list-group mt-5">
+        <li class="list-group-item bg-dark text-light">Styling with Bootstrap: <a href="https://getbootstrap.com/" target="_blank" class="text-info">https://getbootstrap.com/</a></li>
+    </ul>
+    <div style="text-align: center; margin-top: 20px;" class='impressum'><h1>Impressum</h1><p>Angaben gemäß § 5 DDG</p><p>Lyonel Berzen <br> 
+        Hauptstraße 36<br> 
+        99326 Stadtilm <br> 
+        </p><p> <strong>Vertreten durch: </strong><br>
+        Lyonel Berzen<br>
+        </p><p><strong>Kontakt:</strong> <br>
+        Telefon: 01234-789456<br>
+        E-Mail: <a href='mailto:info@lyonelberzen.dev'>info@lyonelberzen.dev</a></br></p><p><strong>Haftungsausschluss: </strong><br><br><strong>Haftung für Links</strong><br><br>
+        Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p><br> 
+        Website Impressum von <a href="https://www.impressum-generator.de">impressum-generator.de</a>
+         </div>
+         
+</div>
+  <div class="footer sticky-footer">
+    &copy; 2024 Moris Pokedex. All rights reserved.
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
