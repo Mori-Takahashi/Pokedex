@@ -51,5 +51,5 @@ pokemon-display-website/
 │   └── poke-render.js
 ├── .gitignore
 ├── index.html
-├── info.html
-└── source.zip
+└── info.html
+
