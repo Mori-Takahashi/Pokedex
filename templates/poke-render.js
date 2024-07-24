@@ -7,12 +7,12 @@ function renderInDiv(i, pokemon, pokemonDetails, pokemonColor) {
     return `
         <!-- ${i} -->
         <div style="${pokemonColor}" onclick="viewPokemon(${pokemonDetails.id})" class="hover-effect cursor-pointer margin-10 shadow p-3 card" style="width: 18rem;">
-        <span class="fw-lighter">PokeID:${pokemonDetails.id}</span>
+        <span class="fw-lighter">National №: ${pokemonDetails.id}</span>
         <img src="${pokemonDetails.sprites.front_default}" class="card-img-top" alt="${pokemonDetails.sprites.front_default}">
             <div class="card-body">
                 <p class="card-text fw-bold">${pokemon.name}</p>
                 ${typesHtml} <br><br>
-                <span class="fw-lighter">PokeID:${pokemonDetails.id}</span>
+                <span class="fw-lighter">Local №: ${pokemonDetails.game_indices[0].game_index} in ${pokemonDetails.game_indices[0].version.name}</span>
             </div>
         </div>
     `
