@@ -1,4 +1,4 @@
-# Pokémon Display Website
+# Pokémon Pokedex Website
 
 This web application displays a list of Pokémon fetched from the [PokeAPI](https://pokeapi.co/). The site's design is implemented using [Bootstrap v5.3.3](https://getbootstrap.com/). This project was created as part of an exercise from the [Developer Academy](https://developerakademie.com/).
 
