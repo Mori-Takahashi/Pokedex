@@ -10,6 +10,7 @@ function renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previ
             <button type="button" class="btn-close" onclick="closeWindow()" aria-label="Close"></button>
           </div>
         </nav>
+        <div id="liveAlertPlaceholderBigView"></div>
         <div class="BigViewDetials d-flex justify-content-around">
           <img src="${data.sprites.front_default}" alt="${data.sprites.front_default}">
           <div class="infoText">

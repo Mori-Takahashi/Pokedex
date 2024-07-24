@@ -26,7 +26,14 @@
   <body class="d-flex flex-column min-vh-100">
     <nav class="margin-bottom-10 navbar navbar-dark bg-dark fixed-top">
       <div class="margin-bottom-10 navbar navbar-dark bg-dark justify-content-around container-fluid">
-        <a class="pokefont navbar-brand no-copy">Moris Pokedex</a>
+        <a class="pokefont navbar-brand no-copy"><svg width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" stroke="black" stroke-width="5" fill="white"/>
+          <path d="M 10 100 A 90 90 0 0 1 190 100" fill="red" stroke="black" stroke-width="5"/>
+          <path d="M 10 100 A 90 90 0 0 0 190 100" fill="white" stroke="black" stroke-width="5"/>
+          <circle cx="100" cy="100" r="25" stroke="black" stroke-width="5" fill="white"/>
+          <circle cx="100" cy="100" r="10" stroke="black" stroke-width="5" fill="white"/>
+          <line x1="10" y1="100" x2="190" y2="100" stroke="black" stroke-width="5"/>
+        </svg> Moris Pokedex</a>
         <form class="d-flex form-inline" role="search" onsubmit="searchPokemon(); return false;">
           <input class="form-control me-2" id="searchPokemonValue" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>

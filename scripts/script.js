@@ -79,7 +79,7 @@ async function renderDataSearch(URL) {
 async function searchPokemon() {
     let input = document.getElementById('searchPokemonValue').value.toLowerCase();
     if (input.length  < 3) {
-        alertMessageValue();
+        alertMessageValue("Please enter more than 3 characters");
     } else {
         let searchURL = API_KEY + search_API + input;
     let data = await loadPokemonDetails(searchURL);
@@ -133,7 +133,11 @@ async function previousPage() {
 }
 
 function previousPageBigView(id) {
-    viewPokemon(id);
+    if (id < 1 || id > 1302) {
+        alertMessageValueBigView("there are no more Pokemons :(");
+    } else {
+        viewPokemon(id);
+    }
 }
 
 function nextPageBigView(id) {
@@ -150,7 +154,7 @@ async function viewPokemon(id) {
         let nextID = id + 1
         let previousID = id - 1
         let pokemonColor = checkColor(data.types[0].type.name);
-        let pokemonColor1 = checkColor(data.types[1].type.name);
+        let pokemonColor1 = data.types[1] ? checkColor(data.types[1].type.name) : null;
         content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID);
         
     } else {
@@ -178,9 +182,25 @@ function closeWindow() {
 }
 
 
-function alertMessageValue() {
+function alertMessageValue(alertText) {
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-    const message = 'Please enter more than 3 characters';
+    const message = alertText;
+    const type = 'success';
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('');
+
+    alertPlaceholder.append(wrapper);
+}
+
+function alertMessageValueBigView(alertText) {
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholderBigView');
+    const message = alertText;
     const type = 'success';
 
     const wrapper = document.createElement('div');
