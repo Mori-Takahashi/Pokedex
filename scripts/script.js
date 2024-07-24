@@ -132,6 +132,14 @@ async function previousPage() {
     renderData(currentURL);
 }
 
+function previousPageBigView(id) {
+    viewPokemon(id);
+}
+
+function nextPageBigView(id) {
+    viewPokemon(id);
+}
+
 async function viewPokemon(id) {
     let pokeInfos = API_KEY + search_API + id;
     let data = await loadPokemonDetails(pokeInfos);
@@ -139,9 +147,11 @@ async function viewPokemon(id) {
     content.innerHTML = ``;
     if (data) {
         console.log(data);
+        let nextID = id + 1
+        let previousID = id - 1
         let pokemonColor = checkColor(data.types[0].type.name);
-        let pokemonColor1 = checkColor(data.types[1].type.name)
-        content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1);
+        let pokemonColor1 = checkColor(data.types[1].type.name);
+        content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID);
         
     } else {
         showAlert("Oh, there was an error :(");

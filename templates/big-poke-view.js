@@ -1,4 +1,4 @@
-function renderPokeInfosBigView(data, pokemonColor, pokemonColor1) {
+function renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID) {
     let typesHtml = `<span style="${pokemonColor}; color: white;" class="padding-3 rounded border border-dark">Type 1: ${data.types[0].type.name}</span>`;
     if (data.types[1]) {
         typesHtml += `<span style="${pokemonColor1}; color: white;" class="padding-3 rounded border border-dark"> Type 2: ${data.types[1].type.name}</span>`;
@@ -19,6 +19,8 @@ function renderPokeInfosBigView(data, pokemonColor, pokemonColor1) {
             <span>Weight: ${data.weight}</span>
             <span>Abilities: ${data.abilities[0].ability.name}</span>
             <span>Local №: ${data.game_indices[0].game_index} // Game: ${data.game_indices[0].version.name}</span>
+            <button class="max-width-button btn btn-dark" id="previousPage" onclick="previousPageBigView(${previousID})" type="button">&#8617; Back</button> <br>
+            <button class="max-width-button btn btn-dark" id="nextPage" onclick="nextPageBigView(${nextID})" type="button">Next &#8618;</button>
           </div>
         </div>
     `

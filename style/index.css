@@ -223,10 +223,11 @@ body {
     width: 100% !important;
 }
 .big-view-pokemon {
-  top: 13%;
+  top: 120px;
   bottom: 0;
   left: 0;
   right: 0;
+  overflow-x: auto;
 }
 
 .big-view-pokemon img{
