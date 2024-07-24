@@ -52,7 +52,8 @@ async function renderData(URL) {
         for (let i = 0; i < data.results.length; i++) {
             let pokemon = data.results[i];
             let pokemonDetails = await loadPokemonDetails(pokemon.url);
-            content.innerHTML += renderInDiv(i, pokemon, pokemonDetails);
+            let pokemonColor = checkColor(pokemonDetails.types[0].type.name)
+            content.innerHTML += renderInDiv(i, pokemon, pokemonDetails, pokemonColor);
         }
         disableSpinner();
         checkButton(data);
@@ -66,7 +67,8 @@ async function renderDataSearch(URL) {
     let content = document.getElementById("render");
     content.innerHTML = ``;
     if (data) {
-        content.innerHTML += renderInDivSearch(data);
+        let pokemonColor = checkColor(data.types[0].type.name)
+        content.innerHTML += renderInDivSearch(data, pokemonColor);
         disableSpinner();
         checkButton(data);
     } else {
@@ -178,6 +180,64 @@ function alertMessageValue() {
     ].join('');
 
     alertPlaceholder.append(wrapper);
+}
+
+function checkColor(type) {
+    if (type === "normal") {
+        return "background-color: #A8A77A;";
+    }
+    if (type === "fire") {
+        return "background-color: #EE8130;";
+    }
+    if (type === "water") {
+        return "background-color: #6390F0;";
+    }
+    if (type === "electric") {
+        return "background-color: #F7D02C;";
+    }
+    if (type === "grass") {
+        return "background-color: #7AC74C;";
+    }
+    if (type === "ice") {
+        return "background-color: #96D9D6;";
+    }
+    if (type === "fighting") {
+        return "background-color: #C22E28;";
+    }
+    if (type === "poison") {
+        return "background-color: #A33EA1;";
+    }
+    if (type === "ground") {
+        return "background-color: #E2BF65;";
+    }
+    if (type === "flying") {
+        return "background-color: #A98FF3;";
+    }
+    if (type === "psychic") {
+        return "background-color: #F95587;";
+    }
+    if (type === "bug") {
+        return "background-color: #A6B91A;";
+    }
+    if (type === "rock") {
+        return "background-color: #B6A136;";
+    }
+    if (type === "ghost") {
+        return "background-color: #735797;";
+    }
+    if (type === "dragon") {
+        return "background-color: #6F35FC;";
+    }
+    if (type === "dark") {
+        return "background-color: #705746;";
+    }
+    if (type === "steel") {
+        return "background-color: #B7B7CE;";
+    }
+    if (type === "fairy") {
+        return "background-color: #D685AD;";
+    }
+    return "background-color: #FFFFFF;";
 }
 
 /* 
