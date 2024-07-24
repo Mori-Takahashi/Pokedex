@@ -10,7 +10,7 @@ function renderPokeInfosBigView(data, pokemonColor, pokemonColor1) {
             <button type="button" class="btn-close" onclick="closeWindow()" aria-label="Close"></button>
           </div>
         </nav>
-        <div class="d-flex justify-content-around">
+        <div class="BigViewDetials d-flex justify-content-around">
           <img src="${data.sprites.front_default}" alt="${data.sprites.front_default}">
           <div class="infoText">
             <span>National №: ${data.id}</span>

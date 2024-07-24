@@ -8,6 +8,8 @@
 html, body {
     height: 100%;
     margin: 0;
+    min-height: 75rem;
+    padding-top: 4.5rem;
 }
 
 
@@ -214,3 +216,26 @@ body {
       stroke-dashoffset: -100;
     }
   }
+
+@media (max-width: 850px) {
+  .row-cols-4>* {
+    flex: 0 0 auto;
+    width: 100% !important;
+}
+.big-view-pokemon {
+  top: 13%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.big-view-pokemon img{
+  width: 350px;
+  object-fit: cover;
+}
+
+.BigViewDetials {
+  flex-direction: column;
+}
+
+}
