@@ -90,9 +90,7 @@ async function searchPokemon() {
 
 function enableSpinner() {
     document.getElementById('spinner').innerHTML = /*html*/`
-        <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only"></span>
-        </div>
+<svg id="spinner" class="container-spinner" viewBox="0 0 40 40" height="40" width="40"><circle class="track" cx="20" cy="20" r="17.5" pathlength="100" stroke-width="5px" fill="none"/><circle class="car" cx="20" cy="20" r="17.5" pathlength="100" stroke-width="5px" fill="none"/></svg>
     `
 }
 
