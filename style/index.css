@@ -31,6 +31,17 @@ body {
     margin-bottom: 10px !important;
 }
 
+.infoText {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.infoText span{
+  margin-bottom: 10px;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }

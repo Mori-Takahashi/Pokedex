@@ -139,7 +139,9 @@ async function viewPokemon(id) {
     content.innerHTML = ``;
     if (data) {
         console.log(data);
-        content.innerHTML = renderPokeInfosBigView(data);
+        let pokemonColor = checkColor(data.types[0].type.name);
+        let pokemonColor1 = checkColor(data.types[1].type.name)
+        content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1);
         
     } else {
         showAlert("Oh, there was an error :(");
