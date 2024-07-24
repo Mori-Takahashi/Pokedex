@@ -76,8 +76,8 @@ async function renderDataSearch(URL) {
 
 async function searchPokemon() {
     let input = document.getElementById('searchPokemonValue').value.toLowerCase();
-    if (input <= 3) {
-        alertMessageValue()
+    if (input.length  < 3) {
+        alertMessageValue();
     } else {
         let searchURL = API_KEY + search_API + input;
     let data = await loadPokemonDetails(searchURL);
@@ -165,25 +165,19 @@ function closeWindow() {
 
 
 function alertMessageValue() {
-    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-    const appendAlert = (message, type) => {
-        const wrapper = document.createElement('div')
-        wrapper.innerHTML = [
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    const message = 'Please enter more than 3 characters';
+    const type = 'success';
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = [
         `<div class="alert alert-${type} alert-dismissible" role="alert">`,
         `   <div>${message}</div>`,
         '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
         '</div>'
-        ].join('')
+    ].join('');
 
-alertPlaceholder.append(wrapper)
-}
-
-const alertTrigger = document.getElementById('liveAlertBtn')
-if (alertTrigger) {
-    alertTrigger.addEventListener('click', () => {
-    appendAlert('Please enter more than 3 characters', 'success')
-    })
-    }
+    alertPlaceholder.append(wrapper);
 }
 
 /* 
