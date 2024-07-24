@@ -1,14 +1,17 @@
+// API URLs
 let API_KEY = "https://pokeapi.co/api/v2/";
 let currentURL = API_KEY + "pokemon?limit=32&offset=0";
 let search_API = "pokemon/";
 let getPokeStats_API = "https://pokeapi.co/api/v2/stat/";
 
+// Initialization
 window.onload = init;
 
 function init() {
     renderData(currentURL);
 }
 
+//Alert Functions
 function showAlert(messege) {
     let msgDiv = document.getElementById('alertMessage');
     msgDiv.classList.remove('d-non');
@@ -20,6 +23,39 @@ function showAlert(messege) {
     }, 5000);
 }
 
+function alertMessageValue(alertText) {
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    const message = alertText;
+    const type = 'success';
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('');
+
+    alertPlaceholder.append(wrapper);
+}
+
+function alertMessageValueBigView(alertText) {
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholderBigView');
+    const message = alertText;
+    const type = 'success';
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('');
+
+    alertPlaceholder.append(wrapper);
+}
+
+//Data Loading Functions
 async function loadData(url) {
     try {
         let response = await fetch(url);
@@ -44,6 +80,7 @@ async function loadPokemonDetails(url) {
     }
 }
 
+//Data Rendering Functions
 async function renderData(URL) {
     let data = await loadData(URL);
     let content = document.getElementById("render");
@@ -82,19 +119,19 @@ async function searchPokemon() {
         alertMessageValue("Please enter more than 3 characters");
     } else {
         let searchURL = API_KEY + search_API + input;
-    let data = await loadPokemonDetails(searchURL);
-    let content = document.getElementById("render");
-    content.innerHTML = ``;
-    if (data) {
-        console.log(data);
-        renderDataSearch(searchURL);
-    } else {
-        showAlert("Oh, there was an error :(");
+        let data = await loadPokemonDetails(searchURL);
+        let content = document.getElementById("render");
+        content.innerHTML = ``;
+        if (data) {
+            console.log(data);
+            renderDataSearch(searchURL);
+        } else {
+            showAlert("Oh, there was an error :(");
+        }
     }
-    }
-    
 }
 
+//Spinner Functions
 function enableSpinner() {
     document.getElementById('spinner').innerHTML = /*html*/`
 <svg id="spinner" class="container-spinner" viewBox="0 0 40 40" height="40" width="40"><circle class="track" cx="20" cy="20" r="17.5" pathlength="100" stroke-width="5px" fill="none"/><circle class="car" cx="20" cy="20" r="17.5" pathlength="100" stroke-width="5px" fill="none"/></svg>
@@ -105,6 +142,7 @@ function disableSpinner() {
     document.getElementById('spinner').innerHTML = ``;
 }
 
+//Button Check Functions
 async function checkButton(data) {
     if (data.next === null) {
         document.getElementById("nextPage").disabled = true;
@@ -118,6 +156,7 @@ async function checkButton(data) {
     }
 }
 
+//page check function
 async function nextPage() {
     let data = await loadData(currentURL);
     currentURL = data.next;
@@ -144,6 +183,7 @@ function nextPageBigView(id) {
     viewPokemon(id);
 }
 
+//Pokemon View Functions
 async function viewPokemon(id) {
     let pokeInfos = API_KEY + search_API + id;
     let data = await loadPokemonDetails(pokeInfos);
@@ -151,18 +191,18 @@ async function viewPokemon(id) {
     content.innerHTML = ``;
     if (data) {
         console.log(data);
-        let nextID = id + 1
-        let previousID = id - 1
+        let nextID = id + 1;
+        let previousID = id - 1;
         let pokemonColor = checkColor(data.types[0].type.name);
         let pokemonColor1 = data.types[1] ? checkColor(data.types[1].type.name) : null;
         content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID);
-        
     } else {
         showAlert("Oh, there was an error :(");
     }
-    openWindow()
+    openWindow();
 }
 
+//Window Functions
 function openWindow() {
     let window = document.getElementById('renderInfos');
     window.classList.add('scale-up-ver-center');
@@ -181,39 +221,7 @@ function closeWindow() {
     }, 500);
 }
 
-
-function alertMessageValue(alertText) {
-    const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-    const message = alertText;
-    const type = 'success';
-
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = [
-        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-        `   <div>${message}</div>`,
-        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-        '</div>'
-    ].join('');
-
-    alertPlaceholder.append(wrapper);
-}
-
-function alertMessageValueBigView(alertText) {
-    const alertPlaceholder = document.getElementById('liveAlertPlaceholderBigView');
-    const message = alertText;
-    const type = 'success';
-
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = [
-        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-        `   <div>${message}</div>`,
-        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-        '</div>'
-    ].join('');
-
-    alertPlaceholder.append(wrapper);
-}
-
+//color Functions
 function checkColor(type) {
     if (type === "normal") {
         return "background-color: #A8A77A;";
