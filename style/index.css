@@ -149,7 +149,7 @@ body {
 }
 
 .big-view-pokemon img{
-    width: 50%;
+    width: 500px;
     object-fit: cover;
 }
 
