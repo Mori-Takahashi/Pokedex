@@ -1,4 +1,4 @@
-function renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID) {
+function renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID, dropshadow) {
     let typesHtml = `<span style="${pokemonColor}; color: white;" class="padding-3 rounded border border-dark">Type 1: ${data.types[0].type.name}</span>`;
     if (data.types[1]) {
         typesHtml += `<span style="${pokemonColor1}; color: white;" class="padding-3 rounded border border-dark"> Type 2: ${data.types[1].type.name}</span>`;
@@ -12,7 +12,7 @@ function renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previ
         </nav>
         <div id="liveAlertPlaceholderBigView"></div>
         <div class="BigViewDetials d-flex justify-content-around">
-          <img src="${data.sprites.front_default}" alt="${data.sprites.front_default}">
+          <img style="filter: drop-shadow(6px -4px 53px ${dropshadow});" src="${data.sprites.front_default}" alt="${data.sprites.front_default}">
           <div class="infoText">
             <span>National №: ${data.id}</span>
             ${typesHtml}
