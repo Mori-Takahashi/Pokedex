@@ -50,6 +50,4 @@ pokemon-display-website/
 │   ├── poke-render-search.js
 │   └── poke-render.js
 ├── .gitignore
-├── index.html
-└── info.html
-
+└── index.html
