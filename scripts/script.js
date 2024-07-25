@@ -9,6 +9,7 @@ window.onload = init;
 
 function init() {
     renderData(currentURL);
+    showTextWelcome();
 }
 
 //Alert Functions
@@ -19,7 +20,7 @@ function showAlert(messege) {
     setTimeout(function() {
         msgDiv.classList.add('d-non');
         msgDiv.innerHTML = ``;
-        init();
+        location.reload();
     }, 5000);
 }
 
@@ -123,7 +124,6 @@ async function searchPokemon() {
         let content = document.getElementById("render");
         content.innerHTML = ``;
         if (data) {
-            console.log(data);
             renderDataSearch(searchURL);
         } else {
             showAlert("Oh, there was an error :(");
@@ -144,12 +144,12 @@ function disableSpinner() {
 
 //Button Check Functions
 async function checkButton(data) {
-    if (data.next === null) {
+    if (data.next === null || data.next === undefined) {
         document.getElementById("nextPage").disabled = true;
     } else {
         document.getElementById("nextPage").disabled = false;
     }
-    if (data.previous === null) {
+    if (data.previous === null || data.next === undefined) {
         document.getElementById("previousPage").disabled = true;
     } else {
         document.getElementById("previousPage").disabled = false;
@@ -190,7 +190,6 @@ async function viewPokemon(id) {
     let content = document.getElementById("renderInfos");
     content.innerHTML = ``;
     if (data) {
-        console.log(data);
         let nextID = id + 1;
         let previousID = id - 1;
         let pokemonColor = checkColor(data.types[0].type.name);
@@ -223,73 +222,55 @@ function closeWindow() {
 
 //color Functions
 function checkColor(type) {
-    if (type === "normal") {
-        return "background-color: #A8A77A;";
-    }
-    if (type === "fire") {
-        return "background-color: #EE8130;";
-    }
-    if (type === "water") {
-        return "background-color: #6390F0;";
-    }
-    if (type === "electric") {
-        return "background-color: #F7D02C;";
-    }
-    if (type === "grass") {
-        return "background-color: #7AC74C;";
-    }
-    if (type === "ice") {
-        return "background-color: #96D9D6;";
-    }
-    if (type === "fighting") {
-        return "background-color: #C22E28;";
-    }
-    if (type === "poison") {
-        return "background-color: #A33EA1;";
-    }
-    if (type === "ground") {
-        return "background-color: #E2BF65;";
-    }
-    if (type === "flying") {
-        return "background-color: #A98FF3;";
-    }
-    if (type === "psychic") {
-        return "background-color: #F95587;";
-    }
-    if (type === "bug") {
-        return "background-color: #A6B91A;";
-    }
-    if (type === "rock") {
-        return "background-color: #B6A136;";
-    }
-    if (type === "ghost") {
-        return "background-color: #735797;";
-    }
-    if (type === "dragon") {
-        return "background-color: #6F35FC;";
-    }
-    if (type === "dark") {
-        return "background-color: #705746;";
-    }
-    if (type === "steel") {
-        return "background-color: #B7B7CE;";
-    }
-    if (type === "fairy") {
-        return "background-color: #D685AD;";
-    }
-    return "background-color: #FFFFFF;";
+    const colors = {
+        normal: "background-color: #A8A77A;",
+        fire: "background-color: #EE8130;",
+        water: "background-color: #6390F0;",
+        electric: "background-color: #F7D02C;",
+        grass: "background-color: #7AC74C;",
+        ice: "background-color: #96D9D6;",
+        fighting: "background-color: #C22E28;",
+        poison: "background-color: #A33EA1;",
+        ground: "background-color: #E2BF65;",
+        flying: "background-color: #A98FF3;",
+        psychic: "background-color: #F95587;",
+        bug: "background-color: #A6B91A;",
+        rock: "background-color: #B6A136;",
+        ghost: "background-color: #735797;",
+        dragon: "background-color: #6F35FC;",
+        dark: "background-color: #705746;",
+        steel: "background-color: #B7B7CE;",
+        fairy: "background-color: #D685AD;"
+    };
+    return colors[type] || "background-color: #FFFFFF;";
 }
 
+//Welcome msg
+function hideWelcomeMessage() {
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    welcomeMessage.classList.add('hidden');
+    setTimeout(() => {
+        welcomeMessage.style.display = 'none';
+    }, 500);
+}
+
+function showTextWelcome() {
+    setTimeout(function(){
+        let classDiv = document.getElementById('welcomeMessageText');
+        classDiv.classList.remove('d-non');
+        classDiv.classList.add('tracking-in-expand');
+    })
+}
 
 /* 
 
-               _          _   _            ___  ___           _   _____     _         _         _     _ 
-              | |        | | | |           |  \/  |          (_) |_   _|   | |       | |       | |   (_)
-  ___ ___   __| | ___  __| | | |__  _   _  | .  . | ___  _ __ _    | | __ _| | ____ _| |__  ___| |__  _ 
- / __/ _ \ / _` |/ _ \/ _` | | '_ \| | | | | |\/| |/ _ \| '__| |   | |/ _` | |/ / _` | '_ \/ __| '_ \| |
-| (_| (_) | (_| |  __/ (_| | | |_) | |_| | | |  | | (_) | |  | |   | | (_| |   < (_| | | | \__ \ | | | |
- \___\___/ \__,_|\___|\__,_| |_.__/ \__, | \_|  |_/\___/|_|  |_|   \_/\__,_|_|\_\__,_|_| |_|___/_| |_|_|
-                                     __/ |                                                              
-                                    |___/                                                               
+               _       _            ___  ___           _   _____     _         _         _     _ 
+              | |     | |           |  \/  |          (_) |_   _|   | |       | |       | |   (_)
+  ___ ___   __| | ___ | |__  _   _  | .  . | ___  _ __ _    | | __ _| | ____ _| |__  ___| |__  _ 
+ / __/ _ \ / _` |/ _ \| '_ \| | | | | |\/| |/ _ \| '__| |   | |/ _` | |/ / _` | '_ \/ __| '_ \| |
+| (_| (_) | (_| |  __/| |_) | |_| | | |  | | (_) | |  | |   | | (_| |   < (_| | | | \__ \ | | | |
+ \___\___/ \__,_|\___||_.__/ \__, | \_|  |_/\___/|_|  |_|   \_/\__,_|_|\_\__,_|_| |_|___/_| |_|_|
+                              __/ |                                                              
+                             |___/                                                               
 
 */

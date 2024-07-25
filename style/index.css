@@ -18,7 +18,7 @@ html, body {
 }
 
 body {
-    background-color: #5252529d !important;
+    background-color: #f7f3e9 !important;
 }
 
 .poke-img {
@@ -217,7 +217,57 @@ body {
     }
   }
 
-@media (max-width: 850px) {
+  .welcome-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(44 44 44 / 98%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: transform 0.5s ease-in-out;
+}
+
+.welcome-message.hidden {
+    transform: translateY(-100%);
+}
+
+.tracking-in-expand {
+	-webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+@-webkit-keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 750px) {
   .row-cols-4>* {
     flex: 0 0 auto;
     width: 100% !important;
@@ -237,6 +287,10 @@ body {
 
 .BigViewDetials {
   flex-direction: column;
+}
+
+.infoText {
+  align-items: center;
 }
 
 }
