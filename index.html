@@ -40,8 +40,9 @@
           <line x1="10" y1="100" x2="190" y2="100" stroke="black" stroke-width="5"/>
         </svg> Moris Pokedex</a>
         <form class="d-flex form-inline" role="search" onsubmit="searchPokemon(); return false;">
-          <input class="form-control me-2" id="searchPokemonValue" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control me-2" id="searchPokemonValue" type="search" placeholder="Search" aria-label="Search" oninput="showSuggestions()">
           <button class="btn btn-outline-success" type="submit">Search</button>
+          <div id="suggestions" class="dropdown-menu margin-top-40"></div>
         </form>
       </div>
     </nav>

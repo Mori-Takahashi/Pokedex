@@ -3,13 +3,55 @@ let API_KEY = "https://pokeapi.co/api/v2/";
 let currentURL = API_KEY + "pokemon?limit=32&offset=0";
 let search_API = "pokemon/";
 let getPokeStats_API = "https://pokeapi.co/api/v2/stat/";
+let allPokemons = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
 
 // Initialization
 window.onload = init;
 
-function init() {
+async function init() {
+    await fetchAllPokemonNames();
     renderData(currentURL);
     showTextWelcome();
+}
+
+//dropdown
+async function fetchAllPokemonNames() {
+    let data = await loadData(allPokemons);
+    if (data && data.results) {
+        allPokemonNames = data.results.map(pokemon => pokemon.name);
+    } else {
+        showAlert("Failed to load Pokémon names");
+    }
+}
+
+function showSuggestions() {
+    let input = document.getElementById('searchPokemonValue').value.toLowerCase();
+    let suggestionsDiv = document.getElementById('suggestions');
+    suggestionsDiv.innerHTML = '';
+
+    if (input.length < 3) {
+        suggestionsDiv.classList.remove('show');
+        return;
+    }
+
+    let filteredNames = allPokemonNames.filter(name => name.toLowerCase().includes(input));
+    if (filteredNames.length > 0) {
+        filteredNames.forEach(name => {
+            let suggestionItem = document.createElement('div');
+            suggestionItem.className = 'dropdown-item';
+            suggestionItem.innerText = name;
+            suggestionItem.onclick = () => selectSuggestion(name);
+            suggestionsDiv.appendChild(suggestionItem);
+        });
+        suggestionsDiv.classList.add('show');
+    } else {
+        suggestionsDiv.classList.remove('show');
+    }
+}
+
+function selectSuggestion(name) {
+    document.getElementById('searchPokemonValue').value = name;
+    document.getElementById('suggestions').classList.remove('show');
 }
 
 //Alert Functions
@@ -126,7 +168,7 @@ async function searchPokemon() {
         if (data) {
             renderDataSearch(searchURL);
         } else {
-            showAlert("Oh, there was an error :(");
+            showAlert(`I couldn't find any Pokemon with the name: ${input}`);
         }
     }
 }
