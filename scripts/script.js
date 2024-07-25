@@ -234,6 +234,7 @@ async function viewPokemon(id) {
     if (data) {
         let nextID = id + 1;
         let previousID = id - 1;
+        playPokeSound(data.cries.latest,  0.1);
         let pokemonColor = checkColor(data.types[0].type.name);
         let pokemonColor1 = data.types[1] ? checkColor(data.types[1].type.name) : null;
         content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID);
@@ -241,6 +242,19 @@ async function viewPokemon(id) {
         showAlert("Oh, there was an error :(");
     }
     openWindow();
+}
+
+// Sound abspielen
+function playPokeSound(sound, volume) {
+    try {
+        var audio = new Audio(sound);
+        audio.volume = volume;
+        audio.play().catch(error => {
+            console.error("Error playing the sound:", error);
+        });
+    } catch (error) {
+        console.error("Error in playPokeSound function:", error);
+    }
 }
 
 //Window Functions
