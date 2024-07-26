@@ -5,6 +5,11 @@ let search_API = "pokemon/";
 let getPokeStats_API = "https://pokeapi.co/api/v2/stat/";
 let allPokemons = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
 
+function logBrowserInfo() {
+    console.log("User Agent:", navigator.userAgent);
+    console.log("Document Last Modified:", document.lastModified);
+}
+
 // Initialization
 window.onload = init;
 
@@ -12,6 +17,7 @@ async function init() {
     await fetchAllPokemonNames();
     renderData(currentURL);
     showTextWelcome();
+    logBrowserInfo();
 }
 
 //dropdown
