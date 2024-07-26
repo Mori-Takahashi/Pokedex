@@ -343,7 +343,6 @@ function showTextWelcome() {
         classDiv.classList.add('tracking-in-expand');
     })
 }
-
 /* 
 
                _       _            ___  ___           _   _____     _         _         _     _ 
@@ -356,10 +355,6 @@ function showTextWelcome() {
                              |___/                                                               
 
 */
-
-//dot animation
-// Your existing script.js content
-
 document.addEventListener('DOMContentLoaded', () => {
     // dot animation
     const canvas = document.getElementById('animationCanvas');
