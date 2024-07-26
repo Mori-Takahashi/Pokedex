@@ -154,6 +154,7 @@ body {
   }
 
 .big-view-pokemon {
+  overflow: auto;
     top: 15%;
     bottom: 10%;
     left: 10%;
