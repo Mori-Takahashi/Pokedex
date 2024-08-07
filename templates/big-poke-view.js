@@ -1,3 +1,13 @@
+/**
+ * Renders the detailed view of a Pokémon.
+ * @param {Object} data - The data of the Pokémon.
+ * @param {string} pokemonColor - The background color based on the first Pokémon type.
+ * @param {string} pokemonColor1 - The background color based on the second Pokémon type.
+ * @param {number} nextID - The ID of the next Pokémon.
+ * @param {number} previousID - The ID of the previous Pokémon.
+ * @param {string} dropshadow - The drop shadow color based on the Pokémon type.
+ * @returns {string} - The HTML string for rendering the detailed Pokémon view.
+ */
 function renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID, dropshadow) {
   let typesHtml = `<span style="${pokemonColor}; color: white;" class="padding-3 rounded border border-dark">Type 1: ${data.types[0].type.name}</span>`;
   if (data.types[1]) {

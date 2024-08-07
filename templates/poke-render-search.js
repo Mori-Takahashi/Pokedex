@@ -1,3 +1,9 @@
+/**
+ * Renders the search result of a Pokémon in a card format.
+ * @param {Object} data - The data of the Pokémon.
+ * @param {string} pokemonColor - The background color based on the Pokémon type.
+ * @returns {string} - The HTML string for rendering the Pokémon card.
+ */
 function renderInDivSearch(data, pokemonColor) {
     let typesHtml = `<span class="padding-3 rounded border border-dark">${data.types[0].type.name}</span>`;
     if (data.types[1]) {
@@ -14,5 +20,5 @@ function renderInDivSearch(data, pokemonColor) {
                 <span class="fw-lighter">Local №: ${data.game_indices[0].game_index} in ${data.game_indices[0].version.name}</span>
             </div>
         </div>
-    `
+    `;
 }

@@ -1,3 +1,11 @@
+/**
+ * Renders a Pokémon in a card format.
+ * @param {number} i - The index of the Pokémon.
+ * @param {Object} pokemon - The basic data of the Pokémon.
+ * @param {Object} pokemonDetails - The detailed data of the Pokémon.
+ * @param {string} pokemonColor - The background color based on the Pokémon type.
+ * @returns {string} - The HTML string for rendering the Pokémon card.
+ */
 function renderInDiv(i, pokemon, pokemonDetails, pokemonColor) {
     let typesHtml = `<span class="padding-3 rounded border border-dark">${pokemonDetails.types[0].type.name}</span>`;
     if (pokemonDetails.types[1]) {
@@ -15,5 +23,5 @@ function renderInDiv(i, pokemon, pokemonDetails, pokemonColor) {
                 <span class="fw-lighter">Local №: ${pokemonDetails.game_indices[0].game_index} in ${pokemonDetails.game_indices[0].version.name}</span>
             </div>
         </div>
-    `
+    `;
 }
