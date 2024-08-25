@@ -108,11 +108,6 @@ function showAlert(message) {
     let msgDiv = document.getElementById('alertMessage');
     msgDiv.classList.remove('d-non');
     msgDiv.innerHTML = `${message}`;
-    setTimeout(function() {
-        msgDiv.classList.add('d-non');
-        msgDiv.innerHTML = ``;
-        location.reload();
-    }, 5000);
 }
 
 /**
@@ -234,7 +229,7 @@ async function renderDataSearch(URL) {
  */
 async function searchPokemon() {
     let input = document.getElementById('searchPokemonValue').value.toLowerCase();
-    if (input.length  < 3) {
+    if (input.length < 3) {
         alertMessageValue("Please enter more than 3 characters");
     } else {
         let searchURL = API_KEY + search_API + input;
@@ -244,9 +239,58 @@ async function searchPokemon() {
         if (data) {
             renderDataSearch(searchURL);
         } else {
-            showAlert(`I couldn't find any Pokemon with the name: ${input}`);
+            let suggestions = getSimilarPokemonNames(input);
+            if (suggestions.length > 0) {
+                showAlert(`I couldn't find any Pokémon with the name: ${input}. Did you mean: ${suggestions.join(', ')}?`);
+            } else {
+                showAlert(`I couldn't find any Pokémon with the name: ${input} and no similar names found.`);
+            }
         }
     }
+}
+
+/**
+ * Returns a list of Pokémon names that are similar to the input name.
+ * @param {string} input - The input Pokémon name.
+ * @returns {Array} A list of similar Pokémon names.
+ */
+function getSimilarPokemonNames(input) {
+    const threshold = 3; // Max Levenshtein distance
+    return allPokemonNames.filter(name => getLevenshteinDistance(input, name) <= threshold);
+}
+
+/**
+ * Calculates the Levenshtein distance between two strings.
+ * @param {string} a - The first string.
+ * @param {string} b - The second string.
+ * @returns {number} The Levenshtein distance.
+ */
+function getLevenshteinDistance(a, b) {
+    const matrix = [];
+
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // Substitution
+                    matrix[i][j - 1] + 1,     // Insertion
+                    matrix[i - 1][j] + 1      // Deletion
+                );
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
 }
 
 /**
