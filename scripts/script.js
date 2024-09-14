@@ -113,6 +113,7 @@ function showAlert(message) {
 /**
  * Displays an alert message with a success type.
  * @param {string} alertText - The text to display in the alert.
+ * [BOOTSTRAP COPY]
  */
 function alertMessageValue(alertText) {
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
@@ -133,6 +134,7 @@ function alertMessageValue(alertText) {
 /**
  * Displays a larger alert message with a success type.
  * @param {string} alertText - The text to display in the alert.
+ * [BOOTSTRAP COPY]
  */
 function alertMessageValueBigView(alertText) {
     const alertPlaceholder = document.getElementById('liveAlertPlaceholderBigView');
