@@ -30,6 +30,12 @@ let getPokeStats_API = "https://pokeapi.co/api/v2/stat/";
 let allPokemons = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
 
 /**
+ * Array containing all fetched Pokémon names
+ * @type {Array<string>}
+ */
+let allPokemonNames = [];
+
+/**
  * Logs browser information to the console
  */
 function logBrowserInfo() {
@@ -321,7 +327,7 @@ async function checkButton(data) {
     } else {
         document.getElementById("nextPage").disabled = false;
     }
-    if (data.previous === null || data.next === undefined) {
+    if (data.previous === null || data.previous === undefined) {
         document.getElementById("previousPage").disabled = true;
     } else {
         document.getElementById("previousPage").disabled = false;
@@ -412,10 +418,10 @@ function playPokeSound(sound, volume) {
  * Opens the window to display Pokémon details.
  */
 function openWindow() {
-    let window = document.getElementById('renderInfos');
-    window.classList.add('scale-up-ver-center');
-    window.classList.remove('scale-out-vertical');
-    window.classList.remove('d-non');
+    let detailsWindow = document.getElementById('renderInfos');
+    detailsWindow.classList.add('scale-up-ver-center');
+    detailsWindow.classList.remove('scale-out-vertical');
+    detailsWindow.classList.remove('d-non');
     document.body.classList.add('overflow-hidden');
 }
 
@@ -423,11 +429,11 @@ function openWindow() {
  * Closes the window displaying Pokémon details.
  */
 function closeWindow() {
-    let window = document.getElementById('renderInfos');
-    window.classList.remove('scale-up-ver-center');
-    window.classList.add('scale-out-vertical');
+    let detailsWindow = document.getElementById('renderInfos');
+    detailsWindow.classList.remove('scale-up-ver-center');
+    detailsWindow.classList.add('scale-out-vertical');
     setTimeout(function() {
-        window.classList.add('d-non');
+        detailsWindow.classList.add('d-non');
         document.body.classList.remove('overflow-hidden');
     }, 500);
 }
