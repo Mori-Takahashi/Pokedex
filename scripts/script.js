@@ -1,40 +1,22 @@
-// API URLs
-/** 
- * Base URL for the Pokémon API
- * @type {string}
- */
-let API_KEY = "https://pokeapi.co/api/v2/";
+// API Configuration
+const API_CONFIG = {
+    BASE_URL: "https://pokeapi.co/api/v2/",
+    POKEMON_ENDPOINT: "pokemon/",
+    STATS_ENDPOINT: "stat/",
+    ITEMS_PER_PAGE: 32,
+    MAX_POKEMON_LIMIT: 100000
+};
 
-/** 
- * URL to fetch the first 32 Pokémon
- * @type {string}
- */
-let currentURL = API_KEY + "pokemon?limit=32&offset=0";
-
-/** 
- * Endpoint for searching Pokémon by name
- * @type {string}
- */
-let search_API = "pokemon/";
-
-/** 
- * URL for fetching Pokémon stats
- * @type {string}
- */
-let getPokeStats_API = "https://pokeapi.co/api/v2/stat/";
-
-/** 
- * URL to fetch all Pokémon names
- * @type {string}
- */
-let allPokemons = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+let currentURL = `${API_CONFIG.BASE_URL}pokemon?limit=${API_CONFIG.ITEMS_PER_PAGE}&offset=0`;
+let allPokemonNames = [];
 
 /**
- * Logs browser information to the console
+ * Logs application information to the console
  */
-function logBrowserInfo() {
-    console.log("User Agent:", navigator.userAgent);
-    console.log("Document Last Modified:", document.lastModified);
+function logAppInfo() {
+    console.log("Pokedex App initialized");
+    console.log("Total Pokemon available:", allPokemonNames.length);
+    console.log("Last modified:", document.lastModified);
 }
 
 // Initialization
@@ -45,21 +27,32 @@ window.onload = init;
  * rendering initial data, showing a welcome message, and logging browser info.
  */
 async function init() {
-    await fetchAllPokemonNames();
-    renderData(currentURL);
-    showTextWelcome();
-    logBrowserInfo();
+    try {
+        await fetchAllPokemonNames();
+        await renderData(currentURL);
+        showTextWelcome();
+        logAppInfo();
+    } catch (error) {
+        console.error('Failed to initialize app:', error);
+        showAlert('Failed to initialize the Pokedex. Please refresh the page.');
+    }
 }
 
 /**
  * Fetches all Pokémon names and stores them in an array.
  */
 async function fetchAllPokemonNames() {
-    let data = await loadData(allPokemons);
-    if (data && data.results) {
-        allPokemonNames = data.results.map(pokemon => pokemon.name);
-    } else {
-        showAlert("Failed to load Pokémon names");
+    const allPokemonsURL = `${API_CONFIG.BASE_URL}pokemon?limit=${API_CONFIG.MAX_POKEMON_LIMIT}&offset=0`;
+    try {
+        const data = await loadData(allPokemonsURL);
+        if (data?.results) {
+            allPokemonNames = data.results.map(pokemon => pokemon.name);
+        } else {
+            throw new Error('No Pokemon data received');
+        }
+    } catch (error) {
+        console.error('Failed to fetch Pokemon names:', error);
+        showAlert('Failed to load Pokémon names. Some features may not work.');
     }
 }
 
@@ -67,22 +60,25 @@ async function fetchAllPokemonNames() {
  * Shows suggestions based on the user's input in the search box.
  */
 function showSuggestions() {
-    let input = document.getElementById('searchPokemonValue').value.toLowerCase();
-    let suggestionsDiv = document.getElementById('suggestions');
+    const input = document.getElementById('searchPokemonValue').value.toLowerCase().trim();
+    const suggestionsDiv = document.getElementById('suggestions');
     suggestionsDiv.innerHTML = '';
 
-    if (input.length < 3) {
+    if (input.length < 2) {
         suggestionsDiv.classList.remove('show');
         return;
     }
 
-    let filteredNames = allPokemonNames.filter(name => name.toLowerCase().includes(input));
+    const filteredNames = allPokemonNames
+        .filter(name => name.toLowerCase().includes(input))
+        .slice(0, 10);
+    
     if (filteredNames.length > 0) {
         filteredNames.forEach(name => {
-            let suggestionItem = document.createElement('div');
+            const suggestionItem = document.createElement('div');
             suggestionItem.className = 'dropdown-item';
-            suggestionItem.innerText = name;
-            suggestionItem.onclick = () => selectSuggestion(name);
+            suggestionItem.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+            suggestionItem.addEventListener('click', () => selectSuggestion(name));
             suggestionsDiv.appendChild(suggestionItem);
         });
         suggestionsDiv.classList.add('show');
@@ -159,12 +155,14 @@ function alertMessageValueBigView(alertText) {
  */
 async function loadData(url) {
     try {
-        let response = await fetch(url);
-        let responseToJson = await response.json();
-        return responseToJson;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
     } catch (error) {
-        console.error("Error in loadData function:", error);
-        showAlert("I cannot load any data :(");
+        console.error('Error loading data from:', url, error);
+        showAlert('Failed to load data. Please check your internet connection.');
         return null;
     }
 }
@@ -176,12 +174,13 @@ async function loadData(url) {
  */
 async function loadPokemonDetails(url) {
     try {
-        let response = await fetch(url);
-        let responseToJson = await response.json();
-        return responseToJson;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
     } catch (error) {
-        console.error("Error in loadPokemonDetails function:", error);
-        showAlert("I can't load any parts :(");
+        console.error('Error loading Pokemon details from:', url, error);
         return null;
     }
 }
@@ -230,24 +229,35 @@ async function renderDataSearch(URL) {
  * Searches for a Pokémon based on the user's input.
  */
 async function searchPokemon() {
-    let input = document.getElementById('searchPokemonValue').value.toLowerCase();
-    if (input.length < 3) {
-        alertMessageValue("Please enter more than 3 characters");
-    } else {
-        let searchURL = API_KEY + search_API + input;
-        let data = await loadPokemonDetails(searchURL);
-        let content = document.getElementById("render");
-        content.innerHTML = ``;
+    const input = document.getElementById('searchPokemonValue').value.toLowerCase().trim();
+    
+    if (input.length < 2) {
+        alertMessageValue('Please enter at least 2 characters');
+        return;
+    }
+
+    const searchURL = `${API_CONFIG.BASE_URL}${API_CONFIG.POKEMON_ENDPOINT}${input}`;
+    enableSpinner();
+    
+    try {
+        const data = await loadPokemonDetails(searchURL);
+        const content = document.getElementById('render');
+        content.innerHTML = '';
+        
         if (data) {
-            renderDataSearch(searchURL);
+            await renderDataSearch(searchURL);
         } else {
-            let suggestions = getSimilarPokemonNames(input);
-            if (suggestions.length > 0) {
-                showAlert(`I couldn't find any Pokémon with the name: ${input}. Did you mean: ${suggestions.join(', ')}?`);
-            } else {
-                showAlert(`I couldn't find any Pokémon with the name: ${input} and no similar names found.`);
-            }
+            const suggestions = getSimilarPokemonNames(input);
+            const message = suggestions.length > 0 
+                ? `Pokémon "${input}" not found. Did you mean: ${suggestions.slice(0, 5).join(', ')}?`
+                : `Pokémon "${input}" not found and no similar names available.`;
+            showAlert(message);
         }
+    } catch (error) {
+        console.error('Search error:', error);
+        showAlert('Search failed. Please try again.');
+    } finally {
+        disableSpinner();
     }
 }
 
@@ -315,16 +325,16 @@ function disableSpinner() {
  * Checks the availability of the next and previous buttons based on the provided data.
  * @param {Object} data - The data to check the buttons' state.
  */
-async function checkButton(data) {
-    if (data.next === null || data.next === undefined) {
-        document.getElementById("nextPage").disabled = true;
-    } else {
-        document.getElementById("nextPage").disabled = false;
+function checkButton(data) {
+    const nextButton = document.getElementById('nextPage');
+    const prevButton = document.getElementById('previousPage');
+    
+    if (nextButton) {
+        nextButton.disabled = !data.next;
     }
-    if (data.previous === null || data.next === undefined) {
-        document.getElementById("previousPage").disabled = true;
-    } else {
-        document.getElementById("previousPage").disabled = false;
+    
+    if (prevButton) {
+        prevButton.disabled = !data.previous;
     }
 }
 
@@ -373,22 +383,34 @@ function nextPageBigView(id) {
  * @param {number} id - The ID of the Pokémon.
  */
 async function viewPokemon(id) {
-    let pokeInfos = API_KEY + search_API + id;
-    let data = await loadPokemonDetails(pokeInfos);
-    let content = document.getElementById("renderInfos");
-    content.innerHTML = ``;
-    if (data) {
-        let nextID = id + 1;
-        let previousID = id - 1;
-        playPokeSound(data.cries.latest,  0.1);
-        let pokemonColor = checkColor(data.types[0].type.name);
-        let pokemonColor1 = data.types[1] ? checkColor(data.types[1].type.name) : null;
-        let dropshadow = checkColorShadow(data.types[0].type.name);
-        content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID, dropshadow);
-    } else {
-        showAlert("Oh, there was an error :(");
+    const pokeInfosURL = `${API_CONFIG.BASE_URL}${API_CONFIG.POKEMON_ENDPOINT}${id}`;
+    
+    try {
+        const data = await loadPokemonDetails(pokeInfosURL);
+        const content = document.getElementById('renderInfos');
+        content.innerHTML = '';
+        
+        if (data) {
+            const nextID = id + 1;
+            const previousID = id - 1;
+            
+            if (data.cries?.latest) {
+                playPokeSound(data.cries.latest, 0.1);
+            }
+            
+            const pokemonColor = checkColor(data.types[0]?.type?.name);
+            const pokemonColor1 = data.types[1] ? checkColor(data.types[1].type.name) : null;
+            const dropshadow = checkColorShadow(data.types[0]?.type?.name);
+            
+            content.innerHTML = renderPokeInfosBigView(data, pokemonColor, pokemonColor1, nextID, previousID, dropshadow);
+            openWindow();
+        } else {
+            showAlert('Failed to load Pokémon details.');
+        }
+    } catch (error) {
+        console.error('Error viewing Pokemon:', error);
+        showAlert('An error occurred while loading Pokémon details.');
     }
-    openWindow();
 }
 
 /**
@@ -396,15 +418,17 @@ async function viewPokemon(id) {
  * @param {string} sound - The URL of the cry sound.
  * @param {number} volume - The volume level for the sound.
  */
-function playPokeSound(sound, volume) {
+function playPokeSound(sound, volume = 0.1) {
+    if (!sound) return;
+    
     try {
-        var audio = new Audio(sound);
-        audio.volume = volume;
+        const audio = new Audio(sound);
+        audio.volume = Math.min(Math.max(volume, 0), 1);
         audio.play().catch(error => {
-            console.error("Error playing the sound:", error);
+            console.warn('Could not play Pokemon sound:', error.message);
         });
     } catch (error) {
-        console.error("Error in playPokeSound function:", error);
+        console.warn('Error creating audio element:', error.message);
     }
 }
 
